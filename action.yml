@@ -1,0 +1,28 @@
+name: "Script-to-Slack"
+description: "Run a script and post the output to a Slack channel"
+inputs:
+  slack_bot_token:
+    description: "The Slack bot token to use for this action"
+    required: true
+  slack_channel_id:
+    description: "The ID of the slack channel that you want the bot to post the output in"
+    required: true
+  command:
+    description: "The command to run. The output will be interpreted as mrkdwn"
+    required: true
+  dir:
+    description: "The directory to run the command in. Defaults to GITHUB_WORKSPACE"
+    default: $GITHUB_WORKSPACE
+runs:
+  using: "composite"
+  steps:
+    - run: ( cd $GITHUB_ACTION_PATH ; ./run.sh )
+      shell: bash
+      env:
+        SLACK_CHANNEL_ID: ${{ inputs.slack_channel_id }}
+        SLACK_BOT_TOKEN: ${{ inputs.slack_bot_token }}
+        ACTION_INPUT_COMMAND: ${{ inputs.command }}
+        ACTION_INPUT_DIR: ${{ inputs.dir }}
+branding:
+  icon: "slack"
+  color: "blue"
