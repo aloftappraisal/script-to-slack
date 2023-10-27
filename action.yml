@@ -11,8 +11,8 @@ inputs:
     description: "The command to run. The output will be interpreted as mrkdwn"
     required: true
   dir:
-    description: "The directory to run the command in. Defaults to GITHUB_WORKSPACE"
-    default: $GITHUB_WORKSPACE
+    description: "The directory to run the command in. Defaults to github.workspace"
+    default: ${{ github.workspace }}
 runs:
   using: "composite"
   steps:

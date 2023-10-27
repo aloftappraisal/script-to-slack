@@ -6,5 +6,6 @@ main().then(
   (e) => {
     console.error(e);
     setFailed(e.message);
+    process.exit(1);
   }
 );
